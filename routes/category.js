@@ -5,13 +5,10 @@ import {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorize,
 } from "./verifyToken.js";
-
 const router = express.Router();
-
 //Create
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newCategory = new Category(req.body);
-
   try {
     const savedCategory = await newCategory.save();
     res.status(200).json(savedCategory);
@@ -20,7 +17,6 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     res(500).json(err);
   }
 });
-
 // UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
@@ -45,14 +41,12 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET ALL categories
 router.get("/", async (req, res) => {
   const qNew = req.query.new;
   const qCategory = req.query.category;
   try {
     let categories;
-
     if (qNew) {
       categories = await Category.find().sort({ createdAt: -1 }).limit(1);
     } else if (qCategory) {
@@ -64,7 +58,6 @@ router.get("/", async (req, res) => {
     } else {
       categories = await Category.find();
     }
-
     res.status(200).json(categories);
   } catch (err) {
     console.log(err);

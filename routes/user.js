@@ -7,16 +7,18 @@ import {
 } from "./verifyToken.js";
 
 const router = express.Router();
+const passSec = process.env.PASS_SEC || "secertPass";
 //changing username
 router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
-      process.env.PASS_SEC
+      passSec
     ).toString();
   }
+});
 
-  try {
+try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
@@ -28,9 +30,8 @@ router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-});
-//deleting user
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+
+  router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted");
@@ -38,6 +39,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 //GET SINGLE USER
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -61,7 +63,6 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 
     res.status(200).json(users);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -88,6 +89,5 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-});
-
+  });
 export default router;

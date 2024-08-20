@@ -3,7 +3,6 @@ import { default as User } from "../models/User.js";
 import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 import Jwt from "jsonwebtoken";
-
 const router = express.Router();
 const pass = "secretPass" 
 const jwtSec = "jwtSecret"
@@ -16,7 +15,6 @@ router.post("/register", async (req, res) => {
       pass
     ).toString(),
   });
-
   try {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
@@ -27,7 +25,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let user = await User.findOne({
-      email: req.body.email,
+      email: req.body.username,
     });
     if (!user) {
       user = await User.findOne({
@@ -42,7 +40,6 @@ router.post("/login", async (req, res) => {
       pass
     );
     const passwordO = hashedPassword.toString(CryptoJS.enc.Utf8);
-
     if (passwordO !== req.body.password) {
       res.status(401).json("wrong email or password2");
     }

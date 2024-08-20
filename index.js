@@ -20,6 +20,10 @@ try {
 }
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
   next();
 });
 app.use(express.json());
@@ -28,7 +32,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
-app.use("/api/payments", stripeRoute);
+app.use("/api/checkout", stripeRoute);
 
 app.listen( 8080, () => {
   console.log("Backend server running!");

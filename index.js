@@ -8,8 +8,6 @@ import { default as cartRoute } from "./routes/cart.js";
 import { default as orderRoute } from "./routes/order.js";
 import { default as stripeRoute } from "./routes/stripe.js";
 import { default as categoryRoute } from "./routes/category.js";
-
-
 dotenv.config();
 const app = express();
 //check
@@ -23,10 +21,8 @@ try {
 }
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
+  res.header("Access-Control-Allow-Headers", "*");
+
   next();
 });
 app.use(express.json());

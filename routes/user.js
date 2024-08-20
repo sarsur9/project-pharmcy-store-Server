@@ -5,7 +5,6 @@ import {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorize,
 } from "./verifyToken.js";
-
 const router = express.Router();
 //changing username
 router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
@@ -15,7 +14,6 @@ router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
       process.env.PASS_SEC
     ).toString();
   }
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -28,7 +26,6 @@ router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-
 });
 //deleting user
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -56,8 +53,10 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     const users = query
       ? await User.find().sort({ _id: -1 }).limit(5)
       : await User.find();
+
     res.status(200).json(users);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -83,5 +82,4 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 export default router;

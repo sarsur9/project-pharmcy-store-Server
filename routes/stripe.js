@@ -4,8 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 const stripe = Stripe(
-  "pk_test_51PluRQIKm3oxgWygISEtvjfiQGFSnMuFrHcbQueLHgK4UwuhzbF3ohk2tbOq998t9tqZI64O7vnYMUT16ZAUZXBD00ddJj75yu"
+  "sk_test_51PluRQIKm3oxgWygXpas6BkEj5lWOaXLfD8w17V6zSgL6mRzztAErAT46TqKM73X00pd6RVChQaatPVEJBsB8ATh003n8BpUC3"
 );
+
 router.post("/payment", (req, res) => {
   stripe.charges.create(
     {
@@ -17,11 +18,9 @@ router.post("/payment", (req, res) => {
       if (stripeErr) {
         res.status(500).json(stripeErr);
         console.log(stripeErr);
-
       } else {
         res.status(200).json(stripeRes);
         console.log(res);
-
       }
     }
   );

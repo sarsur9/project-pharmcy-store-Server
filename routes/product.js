@@ -5,10 +5,12 @@ import {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorize,
 } from "./verifyToken.js";
+
 const router = express.Router();
 //Create
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newProduct = new Product(req.body);
+
   try {
     const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);
@@ -42,6 +44,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // //GET SINGLE Product
 router.get("/find/:id", async (req, res) => {
   try {
@@ -51,6 +54,7 @@ router.get("/find/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //GET ALL Products
 router.get("/", async (req, res) => {
   const qNew = req.query.new;
@@ -73,4 +77,5 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 export default router;

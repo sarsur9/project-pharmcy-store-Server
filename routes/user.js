@@ -5,6 +5,7 @@ import {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorize,
 } from "./verifyToken.js";
+
 const router = express.Router();
 //changing username
 router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
@@ -14,6 +15,7 @@ router.put("/:id", verifyTokenAndAuthorize, async (req, res) => {
       process.env.PASS_SEC
     ).toString();
   }
+
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -36,16 +38,19 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //GET SINGLE USER
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
+
     res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 //GET ALL USERS
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
@@ -61,9 +66,11 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 //GET USER STATS- returns number of users created each month current month- i.e : december:1 user, november:2 users
+
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
   try {
     const data = await User.aggregate([
       { $match: { createdAt: { $gte: lastYear } } },
@@ -82,4 +89,5 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 export default router;

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import mongoose from "mongoose"
-import cors from "cors";
+
 
 import { default as productRoute } from "./routes/product.js";
 import { default as cartRoute } from "./routes/cart.js";
@@ -26,12 +26,11 @@ try {
   console.log(error);
 }
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin","http://localhost:3000");
-  res.header("Access-Control-Allow-Headers","*");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+
   next();
 });
-
-app.use(cors());
 
 app.use(express.json());
 app.use("/api/auth", authRoute);

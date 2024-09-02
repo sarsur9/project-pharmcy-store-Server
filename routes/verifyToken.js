@@ -3,6 +3,7 @@ import Jwt from "jsonwebtoken";
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
   console.log(authHeader);
+
   if (authHeader) {
     const token = authHeader.split(" ")[1];
 
@@ -14,6 +15,7 @@ export const verifyToken = (req, res, next) => {
   } else {
     return res.status(401).json("you are not authenticated");
   }
+  
 };
 
 export const verifyTokenAndAuthorize = (req, res, next) => {
@@ -33,5 +35,6 @@ export const verifyTokenAndAdmin = (req, res, next) => {
     } else {
       res.status(403).json("you are not authorized admin!");
     }
+
   });
 };

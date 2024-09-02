@@ -1,13 +1,10 @@
-
 import  Product  from "../models/Product.js";
 import Category from "../models/Category.js";
 import mongoose from "mongoose"
-
 mongoose.connect("mongodb://localhost:27017/pharmappserver", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 const sliderItemSchema = new mongoose.Schema({
   id: Number,
   img: String,
@@ -15,11 +12,7 @@ const sliderItemSchema = new mongoose.Schema({
   desc: String,
   bg: String,
 });
-
-
 const SliderItem = mongoose.model("SliderItem", sliderItemSchema);
-
-
 const sliderItems = [
   {
     id: 1,
@@ -43,12 +36,11 @@ const sliderItems = [
     bg: "white",
   },
 ];
-
 const categories = [
   {
     id: 1,
     img: "https://i.pinimg.com/564x/16/a1/c0/16a1c087dd1a84fb532e8706daaebe0c.jpg",
-    title: "Over The Counter Medicine",
+    title: "Over The Counter Medicine1.",
     cat: "OTC",
   },
   {
@@ -64,7 +56,6 @@ const categories = [
     cat: "Health",
   },
 ];
-
 const productList = [
   {
     id: 1,
@@ -76,7 +67,6 @@ const productList = [
     size: [200, 400],
     price: "15",
   },
-
   {
     id: 2,
     img: "https://i.pinimg.com/474x/b0/fa/42/b0fa42389fe958728cd297d8be4cb09d.jpg",
@@ -87,7 +77,6 @@ const productList = [
     size: ["DHA/EPA"],
     price: "30",
   },
-
   {
     id: 3,
     img: "https://i.pinimg.com/474x/4e/e1/63/4ee1636308ad2c881632a179e15a4fce.jpg",
@@ -148,17 +137,55 @@ const productList = [
     size: ["40ml"],
     price: "10",
   },
+  {
+    id: 9,
+    img: "https://www.assetpharmacy.com/wp-content/uploads/2020/10/Isosorbide-Mononitrate-20mg-56-Tablets-2.jpg",
+    title: "Isosorbide Mononitrate ",
+    categories: ["Prescription Medicine"],
+    cat: "Prescription Medicine",
+    desc: "Blood vessels dialator ",
+    size: ["20mg"],
+    price: "15",
+  },
+  {
+    id: 10,
+    img: "https://medi-pharm.co.il/Cat_160528_4248.jpg",
+    title: "Acamol ",
+    categories: ["OTC"],
+    cat: "OTC",
+    desc: "Pain reliver and fever lower ",
+    size: ["500mg"],
+    price: "10",
+  },
+  {
+    id: 11,
+    img: "https://i.pinimg.com/564x/cb/9b/31/cb9b3102bc46fdf84f24416d2095fda9.jpg",
+    title: "Aspirin ",
+    categories: ["OTC"],
+    cat: "OTC",
+    desc: "Blood vessels dialator ",
+    size: ["100mg"],
+    price: "13",
+  },
+  {
+    id: 12,
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgmHbjOQ6Dpd0ORDoxtL5-WPWE3UFclVPXNA&s",
+    title: "Moxypen ",
+    categories: ["Prescription Medicine"],
+    cat: "Prescription Medicine",
+    desc: "Antibiotics ",
+    size: ["500mg"],
+    price: "13",
+  },
 ];
 
 
 SliderItem.insertMany(sliderItems)
   .then(() => console.log("Slider items inserted"))
   .catch((err) => console.error("Error inserting slider items:", err));
-
 Category.insertMany(categories)
   .then(() => console.log("Categories inserted"))
   .catch((err) => console.error("Error inserting categories:", err));
-
 Product.insertMany(productList)
   .then(() => {
     console.log("Products inserted");

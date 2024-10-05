@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import userRoute from "./routes/user.js";
 import authRoute from "./routes/auth.js";
 import mongoose from "mongoose"
-
+import cors from "cors"
 
 import { default as productRoute } from "./routes/product.js";
 import { default as cartRoute } from "./routes/cart.js";
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
   next();
 });
-
+app.use(cors()); 
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
